@@ -9,7 +9,6 @@ mybatis的自动生成一直都是常用且高效的dao生成方式，自动化�
     </selectKey>
 生成固定的mysql返回插入数据的当前自增键
 ### PaginationPlugin:
-是一段从网上找来的代码。
 生成select的固定limit语句，同时在example增加limit功能。
 
 觉得mysql还有不少可以使用的plugin，如逻辑删除等等，有时间完善再加。
