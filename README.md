@@ -12,6 +12,12 @@ mybatis的自动生成一直都是常用且高效的dao生成方式，自动化�
 生成select的固定limit语句，同时在example增加limit功能。
 
 觉得mysql还有不少可以使用的plugin，如逻辑删除等等，有时间完善再加。
+### SelectForUpdatePlugin:
+生成select的固定selectForUpdate语句，可以在example中设置wait 的时间。
+
+***使用时千万注意，对不根据主键查询会加表级锁，切记加上主键***
+
+觉得mysql还有不少可以使用的plugin，如逻辑删除等等，有时间完善再加。
 
 ## 使用方法：
 ###1.加入此工程的dependencies到maven的plugin element。
