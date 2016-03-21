@@ -1,3 +1,9 @@
+/**
+ *
+ * Copyright 2016 Fittime, Inc. All rights reserved.
+ * SelectForUpdatePlugin.java
+ *
+ */
 package xyz.ccdaisy.utils;
 
 import java.util.List;
@@ -16,29 +22,27 @@ import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 
 /**
- * @author daisy
- *
+ * @author LCC
+ * @date Mar 21, 2016
  */
-public class PaginationPlugin extends PluginAdapter
+public class SelectForUpdatePlugin extends PluginAdapter
 {
+
     @Override
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable)
     {
-        // add field, getter, setter for limit clause
-        addLimit(topLevelClass, introspectedTable, "limitStart");
-        addLimit(topLevelClass, introspectedTable, "limitEnd");
+        // add field, getter, setter for for update clause
+        addLimit(topLevelClass, introspectedTable, "forUpdate");
         return super.modelExampleClassGenerated(topLevelClass, introspectedTable);
     }
 
     @Override
     public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable)
     {
-        // XmlElement isParameterPresenteElemen = (XmlElement) element
-        // .getElements().get(element.getElements().size() - 1);
         XmlElement isNotNullElement = new XmlElement("if"); //$NON-NLS-1$  
-        isNotNullElement.addAttribute(new Attribute("test", "limitStart != null and limitStart>=0")); //$NON-NLS-1$ //$NON-NLS-2$  
+        isNotNullElement.addAttribute(new Attribute("test", "forUpdate != null and forUpdate>=0")); //$NON-NLS-1$ //$NON-NLS-2$  
         //      isNotNullElement.addAttribute(new Attribute("compareValue", "0")); //$NON-NLS-1$ //$NON-NLS-2$  
-        isNotNullElement.addElement(new TextElement("limit #{limitStart} , #{limitEnd}"));
+        isNotNullElement.addElement(new TextElement("for update wait #{forUpdate}"));
         // isParameterPresenteElemen.addElement(isNotNullElement);
         element.addElement(isNotNullElement);
         return super.sqlMapUpdateByExampleWithoutBLOBsElementGenerated(element, introspectedTable);
@@ -77,5 +81,4 @@ public class PaginationPlugin extends PluginAdapter
     {
         return true;
     }
-
 }
